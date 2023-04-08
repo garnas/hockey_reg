@@ -22,8 +22,19 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('teamname')
             ->add('email', EmailType::class)
-            ->add('nationalitaet', ChoiceType::class, [
-                'choices' => Util::getCountries()
+            ->add('country', ChoiceType::class, [
+                'choices' => Util::getCountries(),
+                'placeholder' => 'Select ...',
+                'help' => 'Select the country for which your team plays.',
+            ])
+            ->add('turnierform', ChoiceType::class, [
+                'placeholder' => 'Select ...',
+                'help' => 'Select the tournament in which your team wants to participate.',
+                'choices' => [
+                    "A-Tournament" => "A",
+                    "B-Tournament" => "B",
+                    "Undecided" => "Undecided",
+                ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

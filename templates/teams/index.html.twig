@@ -3,20 +3,14 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    {% if user != null %}
-        Hello {{ user.userIdentifier }}!
-    {% endif %}
 
-    {% for team in teams %}
-        <h1>
-            {{ team.teamname }}
-        </h1>
-    {% endfor %}
-</div>
+    <h1>Teams</h1>
+
+    {% include('teams/teamlist.html.twig') with {'title': 'A-Tournament', 'filter': 'A'} %}
+
+    {% include('teams/teamlist.html.twig') with {'title': 'B-Tournament', 'filter': 'B'} %}
+
+    {% include('teams/teamlist.html.twig') with {'title': 'Undecided',  'filter': 'Undecided'} %}
+
 {% endblock %}

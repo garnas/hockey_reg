@@ -32,7 +32,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nationalitaet = null;
+    private ?string $country = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $turnierform = null;
@@ -119,14 +119,14 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNationalitaet(): ?string
+    public function getCountry(): ?string
     {
-        return $this->nationalitaet;
+        return $this->country;
     }
 
-    public function setNationalitaet(?string $nationalitaet): self
+    public function setCountry(?string $country): self
     {
-        $this->nationalitaet = $nationalitaet;
+        $this->country = $country;
 
         return $this;
     }

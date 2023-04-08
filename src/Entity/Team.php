@@ -5,46 +5,127 @@ namespace App\Entity;
 use App\Repository\TeamRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
-class Team
+#[UniqueEntity(fields: ['teamname'], message: 'There is already an account with this teamname')]
+class Team implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $teamname = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $turnierform = null;
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string|null The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nationalitaet = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $turnierform = null;
+
     #[ORM\Column]
     private ?bool $bezahlt = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $emails = [];
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $passwort = null;
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private array $additionalEmails = [];
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTeamname(): ?string
     {
-        return $this->name;
+        return $this->teamname;
     }
 
-    public function setName(string $name): self
+    public function setTeamname(string $teamname): self
     {
-        $this->name = $name;
+        $this->teamname = $teamname;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->teamname;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getNationalitaet(): ?string
+    {
+        return $this->nationalitaet;
+    }
+
+    public function setNationalitaet(?string $nationalitaet): self
+    {
+        $this->nationalitaet = $nationalitaet;
 
         return $this;
     }
@@ -61,18 +142,6 @@ class Team
         return $this;
     }
 
-    public function getNationalitaet(): ?string
-    {
-        return $this->nationalitaet;
-    }
-
-    public function setNationalitaet(?string $nationalitaet): self
-    {
-        $this->nationalitaet = $nationalitaet;
-
-        return $this;
-    }
-
     public function isBezahlt(): ?bool
     {
         return $this->bezahlt;
@@ -85,27 +154,40 @@ class Team
         return $this;
     }
 
-    public function getEmails(): array
+    public function getEmail(): ?string
     {
-        return $this->emails;
+        return $this->email;
     }
 
-    public function setEmails(?array $emails): self
+    public function setEmail(string $email): self
     {
-        $this->emails = $emails;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getPasswort(): ?string
+    public function getAdditionalEmails(): array
     {
-        return $this->passwort;
+        return $this->additionalEmails;
     }
 
-    public function setPasswort(?string $passwort): self
+    public function setAdditionalEmails(?array $additionalEmails): self
     {
-        $this->passwort = $passwort;
+        $this->additionalEmails = $additionalEmails;
 
         return $this;
     }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
 }

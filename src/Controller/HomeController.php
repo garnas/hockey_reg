@@ -2,24 +2,29 @@
 
 namespace App\Controller;
 
+use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
-    public function index(): Response
+    #[Route('/teams', name: 'app_teams')]
+    public function home(TeamRepository $teamRepository): Response
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+        $user = $this->getUser();
+        dump($user);
+        $teams = $teamRepository->findAll();
+        return $this->render('teams/index.html.twig', [
+            'teams' => $teams,
+            'user' => $user,
         ]);
     }
 
     #[Route('/teamcenter', name: 'app_teamcenter')]
     public function teamcenter(): Response
     {
-        return $this->render('home/teamcenter/teamcenter.html.twig', [
+        return $this->render('teams/teamcenter/teamcenter.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }

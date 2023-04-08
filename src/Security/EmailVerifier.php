@@ -36,7 +36,6 @@ class EmailVerifier
         $email->context($context);
 
         $this->mailer->send($email);
-        $this->addFlash('success', 'Email for verification was send.');
     }
 
     /**
@@ -47,7 +46,6 @@ class EmailVerifier
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
         $user->setIsVerified(true);
-        $this->addFlash('success', 'Email is verified.');
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

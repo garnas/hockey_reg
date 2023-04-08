@@ -3,17 +3,15 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
 
         // get the login error if there is one
@@ -28,27 +26,11 @@ class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('/email')]
-    public function sendEmail(MailerInterface $mailer): Response
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(Security $security): Response
     {
-        $email = (new Email())
-            ->from('mailbot@example.com')
-            ->to('merkmich@gmail.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
-
-        try {
-            $mailer->send($email);
-        } catch (TransportExceptionInterface $e) {
-            dump($e);
-        }
-        return new Response(
-            '<html><body>Done?</body></html>'
-        );
+        $security->logout(false);
+        return $this->redirect('/login');
     }
+
 }

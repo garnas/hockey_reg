@@ -13,7 +13,6 @@ class HomeController extends AbstractController
     public function home(TeamRepository $teamRepository): Response
     {
         $user = $this->getUser();
-        dump($user);
         $teams = $teamRepository->findAll();
         return $this->render('teams/index.html.twig', [
             'teams' => $teams,

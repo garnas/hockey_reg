@@ -30,7 +30,8 @@ class LoginController extends AbstractController
     public function logout(Security $security): Response
     {
         $security->logout(false);
-        return $this->redirect('/login');
+        $this->addFlash("success", "Logout...");
+        return $this->redirect('app_home');
     }
 
 }

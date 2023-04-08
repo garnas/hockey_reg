@@ -9,8 +9,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    #[Route('/', name: 'app_home')]
+    public function home(): Response
+    {
+        return $this->render('home/home.html.twig');
+    }
+
     #[Route('/teams', name: 'app_teams')]
-    public function home(TeamRepository $teamRepository): Response
+    public function teams(TeamRepository $teamRepository): Response
     {
         $user = $this->getUser();
         $teams = $teamRepository->findAll();

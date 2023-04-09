@@ -22,6 +22,9 @@ class Player
     #[ORM\ManyToOne(inversedBy: 'players')]
     private ?Team $team = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $captain = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Player
     public function setTeam(?Team $team): self
     {
         $this->team = $team;
+
+        return $this;
+    }
+
+    public function isCaptain(): ?bool
+    {
+        return $this->captain;
+    }
+
+    public function setCaptain(?bool $captain): self
+    {
+        $this->captain = $captain;
 
         return $this;
     }

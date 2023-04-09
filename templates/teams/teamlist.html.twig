@@ -1,5 +1,5 @@
 
-{% if teams|filter(team => team.turnierform == filter) is not empty %}
+{% if teams|filter(team => team.tournamentLevel == filter) is not empty %}
     <h2>{{ title }}</h2>
     <div class="table-responsive">
         <table class="table table-striped align-middle">
@@ -12,7 +12,7 @@
                 <th class="text-center">Players</th>
             </tr>
             </thead>
-            {% for team in teams|filter(team => team.turnierform == filter) %}
+            {% for team in teams|filter(team => team.tournamentLevel == filter) %}
                 <tr>
                     <td>
                         {% if team.isVerified %}

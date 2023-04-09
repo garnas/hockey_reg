@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Player;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +19,9 @@ class PlayerType extends AbstractType
             ])
             ->add('familyName', TextType::class, [
                 'label' => 'Family Name',
+            ])
+            ->add('captain', CheckboxType::class, [
+                'label' => 'Team Captain',
             ])
         ;
     }

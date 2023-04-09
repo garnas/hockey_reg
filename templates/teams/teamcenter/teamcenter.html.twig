@@ -11,6 +11,7 @@
                 <thead>
                 <tr>
                     <th class="text-center">ID</th>
+                    <th class="text-center">Captain</th>
                     <th>Name</th>
                     <th class="text-center">Remove</th>
                 </tr>
@@ -19,6 +20,11 @@
                     <tr>
                         <td class="text-center">
                             {{ player.id }}
+                        </td>
+                        <td class="text-center">
+                            {% if player.captain %}
+                                <i class="bi bi-flag-fill"></i>
+                            {% endif %}
                         </td>
                         <td>
                             {{ player.givenName }} {{ player.familyName }}
@@ -42,15 +48,37 @@
 
         {{ form_row(addPlayerForm.givenName) }}
         {{ form_row(addPlayerForm.familyName) }}
-
-        <button type="submit" class="btn btn-primary">Add Player</button>
+        {{ form_row(addPlayerForm.captain) }}
+        <button type="submit" class="btn btn-primary"><i class="bi bi-person-plus-fill"></i> Add Player</button>
         {{ form_end(addPlayerForm) }}
     </div>
 
     <div>
-        <h1>Opponents</h1>
-        {% for opponent in teams|filter(team => team.tournamentLevel == filter %}
 
+        <h1>Opponents</h1>
+        {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel) %}
+            <div class="card container-fluid md-3">
+            <h3>{{ opponent.teamname }}</h3>
+            {% for player in opponent.getPlayers %}
+                <p>
+                    {{ player.givenName }} {{ player.familyName }}
+                    {% if player.captain %}
+                        <i class="bi bi-flag-fill"></i>
+                    {% endif %}
+                </p>
+            {% endfor %}
+            </div>
+        {% endfor %}
+        <h1>Other Teams</h1>
+        {% for opponent in teams|filter(opponent => team.tournamentLevel != opponent.tournamentLevel) %}
+            <div class="card container-fluid md-3">
+                <h3>{{ opponent.teamname }}</h3>
+                {% for player in opponent.getPlayers %}
+                    <p>
+                        {{ player.givenName }}
+                    </p>
+                {% endfor %}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

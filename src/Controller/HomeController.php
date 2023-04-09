@@ -64,11 +64,21 @@ class HomeController extends AbstractController
         $addPlayerForm = $this->createForm(PlayerType::class, $player);
         $addPlayerForm->handleRequest($request);
 
-        if ($addPlayerForm->isSubmitted() && $addPlayerForm->isValid()) {
-            $team->addPlayer($player);
-            $playerRepository->save($player, true);
-            $this->addFlash("success", "Form worked");
-            return $this->redirectToRoute('app_teamcenter');
+        if (
+            $addPlayerForm->isSubmitted()
+            && $addPlayerForm->isValid()
+        ) {
+
+            if ($team->getPlayers()->exists(function($key, $value) {
+                return $value->isCaptain();
+            })) {
+                $this->addFlash("error", "There can only be one team captain.");
+            } else {
+                $team->addPlayer($player);
+                $playerRepository->save($player, true);
+                $this->addFlash("success", "Form worked");
+                return $this->redirectToRoute('app_teamcenter');
+            }
         }
 
         $removePlayerForm = $this->createFormBuilder()

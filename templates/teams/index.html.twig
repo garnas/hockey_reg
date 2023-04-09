@@ -6,11 +6,13 @@
 
 
     <h1>Teams</h1>
+    {% if teams is empty %}
+        <p>No teams registered yet.</p>
+    {% else %}
+        {% include('teams/teamlist.html.twig') with {'title': 'A-Tournament', 'filter': 'A'} %}
 
-    {% include('teams/teamlist.html.twig') with {'title': 'A-Tournament', 'filter': 'A'} %}
+        {% include('teams/teamlist.html.twig') with {'title': 'B-Tournament', 'filter': 'B'} %}
 
-    {% include('teams/teamlist.html.twig') with {'title': 'B-Tournament', 'filter': 'B'} %}
-
-    {% include('teams/teamlist.html.twig') with {'title': 'Undecided',  'filter': 'Undecided'} %}
-
+        {% include('teams/teamlist.html.twig') with {'title': 'Undecided',  'filter': 'Undecided'} %}
+    {% endif %}
 {% endblock %}

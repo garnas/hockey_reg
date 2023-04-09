@@ -1,36 +1,38 @@
-<div class="table-responsive">
-    <h2>{{ title }}</h2>
-    <table class="table table-striped align-middle">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Team</th>
-            <th class="text-center">Country</th>
-            <th class="text-center">Captain</th>
-            <th class="text-center">Players</th>
-        </tr>
-        </thead>
 
-        {% for team in teams|filter(team => team.turnierform == filter) %}
+{% if teams|filter(team => team.turnierform == filter) is not empty %}
+    <h2>{{ title }}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
             <tr>
-                <td>
-                    {% if team.isVerified %}
-                        <i class="bi bi-check-circle"></i>
-                    {% endif %}
-                </td>
-                <td>
-                    {{ team.teamname }}
-                </td>
-                <td class="text-center">
-                    {{ team.country }}
-                </td>
-                <td class="text-center">
-                    Max Muster
-                </td>
-                <td class="text-center">
-                    {{ team.players|length }}
-                </td>
+                <th></th>
+                <th>Team</th>
+                <th class="text-center">Country</th>
+                <th class="text-center">Captain</th>
+                <th class="text-center">Players</th>
             </tr>
-        {% endfor %}
-    </table>
-</div>
+            </thead>
+            {% for team in teams|filter(team => team.turnierform == filter) %}
+                <tr>
+                    <td>
+                        {% if team.isVerified %}
+                            <i class="bi bi-check-circle"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ team.teamname }}
+                    </td>
+                    <td class="text-center">
+                        {{ team.country }}
+                    </td>
+                    <td class="text-center">
+                        Max Muster
+                    </td>
+                    <td class="text-center">
+                        {{ team.players|length }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endif %}

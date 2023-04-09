@@ -13,22 +13,20 @@
                 <a class="navbar-brand" href="{{ path('app_home') }}">EUHC</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Infos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_teams') }}">Teams</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_teamcenter') }}">Teamcenter</a>
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Info</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_register') }}">Register</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_teams') }}">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_teamcenter') }}">My Team</a>
+                    </li>
+                    <li class="nav-item">
                         {% if is_granted('ROLE_USER') %}
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                        {% else %}
-                            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
                         {% endif %}
                     </li>
                 </ul>

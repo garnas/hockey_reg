@@ -2,9 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Player;
+use App\Entity\Team;
+use App\Form\PlayerType;
+use App\Form\RegistrationFormType;
+use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -26,11 +35,53 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/teamcenter', name: 'app_teamcenter')]
-    public function teamcenter(): Response
+    #[Route('/player/{playerId}', name: 'app_remove_player', methods: ['POST'])]
+    public function removePlayer(int $playerId, PlayerRepository $playerRepository): Response
     {
+        /** @var Team $team */
+        $team = $this->getUser();
+        $player = $playerRepository->find($playerId);
+        if (
+            $player !== null
+            && $player->getTeam() === $team
+        ) {
+            $playerRepository->remove($player, true);
+            $this->addFlash("success", "Player has been removed.");
+        } else {
+            $this->addFlash("error", "No player has been removed.");
+        }
+        return $this->redirectToRoute('app_teamcenter');
+    }
+
+    #[Route('/teamcenter', name: 'app_teamcenter')]
+    public function teamcenter(Request $request, PlayerRepository $playerRepository, TeamRepository $teamRepository): Response
+    {
+        /** @var Team $team */
+        $team = $this->getUser();
+
+        $player = new Player();
+
+        $addPlayerForm = $this->createForm(PlayerType::class, $player);
+        $addPlayerForm->handleRequest($request);
+
+        if ($addPlayerForm->isSubmitted() && $addPlayerForm->isValid()) {
+            $team->addPlayer($player);
+            $playerRepository->save($player, true);
+            $this->addFlash("success", "Form worked");
+            return $this->redirectToRoute('app_teamcenter');
+        }
+
+        $removePlayerForm = $this->createFormBuilder()
+            ->setAction($this->generateUrl('app_remove_player', ['playerId' => 0]))
+            ->setMethod('DELETE')
+            ->getForm();
+
+        $teams = $teamRepository->findAll();
         return $this->render('teams/teamcenter/teamcenter.html.twig', [
-            'controller_name' => 'HomeController',
+            'addPlayerForm' => $addPlayerForm->createView(),
+            'removePlayerForm' => $removePlayerForm->createView(),
+            'team' => $team,
+            'teams' => $teams
         ]);
     }
 }

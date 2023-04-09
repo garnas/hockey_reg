@@ -36,7 +36,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $country = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $turnierform = null;
+    private ?string $tournamentLevel = null;
 
     #[ORM\Column]
     private ?bool $bezahlt = null;
@@ -140,14 +140,14 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTurnierform(): ?string
+    public function getTournamentLevel(): ?string
     {
-        return $this->turnierform;
+        return $this->tournamentLevel;
     }
 
-    public function setTurnierform(?string $turnierform): self
+    public function setTournamentLevel(?string $tournamentLevel): self
     {
-        $this->turnierform = $turnierform;
+        $this->tournamentLevel = $tournamentLevel;
 
         return $this;
     }

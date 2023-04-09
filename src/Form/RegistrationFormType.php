@@ -27,7 +27,7 @@ class RegistrationFormType extends AbstractType
                 'placeholder' => 'Select ...',
                 'help' => 'Select the country for which your team plays.',
             ])
-            ->add('turnierform', ChoiceType::class, [
+            ->add('tournamentLevel', ChoiceType::class, [
                 'placeholder' => 'Select ...',
                 'help' => 'Select the tournament in which your team wants to participate.',
                 'choices' => [

@@ -5,18 +5,14 @@ namespace App\Controller;
 use App\Entity\Player;
 use App\Entity\Team;
 use App\Form\PlayerType;
-use App\Form\RegistrationFormType;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class MainController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function home(): Response
@@ -68,15 +64,17 @@ class HomeController extends AbstractController
             $addPlayerForm->isSubmitted()
             && $addPlayerForm->isValid()
         ) {
-
-            if ($team->getPlayers()->exists(function($key, $value) {
-                return $value->isCaptain();
-            })) {
+            if (
+                $player->isCaptain()
+                && $team->getPlayers()->exists(function($key, $value) {
+                    return $value->isCaptain();
+                })
+            ) {
                 $this->addFlash("error", "There can only be one team captain.");
             } else {
                 $team->addPlayer($player);
                 $playerRepository->save($player, true);
-                $this->addFlash("success", "Form worked");
+                $this->addFlash("success", "Player has been added.");
                 return $this->redirectToRoute('app_teamcenter');
             }
         }

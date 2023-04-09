@@ -4,126 +4,127 @@
 
 {% block body %}
 
-    {% include('crud_team/show.html.twig') %}
-
-    <h1>Team Roster</h1>
-    <h2>{{ team.teamname }}</h2>
-    {% if team.players is not empty %}
-        <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Captain</th>
-                    <th>Name</th>
-                    <th class="text-center">Remove</th>
-                </tr>
-                </thead>
-                {% for player in team.players %}
-                    <tr>
-                        <td class="text-center">
-                            {{ player.id }}
-                        </td>
-                        <td class="text-center">
-                            {{ form_start(toggleCaptainForm, {
-                                'action': path('app_toggle_captain', {'playerId': player.id}),
-                                'method': 'UPDATE'
-                            }) }}
-                            <button type="submit" class="btn">
-                                {% if player.captain %}
-                                    <i class="bi bi-flag-fill"></i>
-                                {% else %}
-                                    <i class="bi bi-flag"></i>
-                                {% endif %}
-                            </button>
-                            {{ form_end(removePlayerForm) }}
-
-                        </td>
-                        <td>
-                            {{ player.givenName }} {{ player.familyName }}
-                        </td>
-                        <td class="text-center">
-                            {{ form_start(removePlayerForm, {
-                                'action': path('app_remove_player', {'playerId': player.id}),
-                                'method': 'DELETE',
-                                'attr': { 'onsubmit': "return confirm('Remove " ~ player.givenName  ~ "?');"}
-                            }) }}
-                            <button type="submit" class="btn"><i class="bi bi-x-circle"></i></button>
-                            {{ form_end(removePlayerForm) }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+    {% include('teams/details.html.twig') %}
+    <div class="container mb-3 mt-3">
+        <div class="card-text">
+            <h2>Team Roster</h2>
         </div>
-        {% if not team.hasCaptain %}
-            <div class="alert alert-secondary">Please add a team captain by clicking on a flag.</div>
-        {% else %}
-            <small><i>Click on a flag to change the team captain.</i></small>
+        {% if team.players is not empty %}
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Captain</th>
+                        <th>Name</th>
+                        <th class="text-center">Remove</th>
+                    </tr>
+                    </thead>
+                    {% for player in team.players %}
+                        <tr>
+                            <td class="text-center">
+                                {{ player.id }}
+                            </td>
+                            <td class="text-center">
+                                {{ form_start(toggleCaptainForm, {
+                                    'action': path('app_toggle_captain', {'playerId': player.id}),
+                                    'method': 'UPDATE'
+                                }) }}
+                                <button type="submit" class="btn">
+                                    {% if player.captain %}
+                                        <i class="bi bi-flag-fill"></i>
+                                    {% else %}
+                                        <i class="bi bi-flag"></i>
+                                    {% endif %}
+                                </button>
+                                {{ form_end(removePlayerForm) }}
+
+                            </td>
+                            <td>
+                                {{ player.givenName }} {{ player.familyName }}
+                            </td>
+                            <td class="text-center">
+                                {{ form_start(removePlayerForm, {
+                                    'action': path('app_remove_player', {'playerId': player.id}),
+                                    'method': 'DELETE',
+                                    'attr': { 'onsubmit': "return confirm('Remove " ~ player.givenName  ~ "?');"}
+                                }) }}
+                                <button type="submit" class="btn"><i class="bi bi-x-circle"></i></button>
+                                {{ form_end(removePlayerForm) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% if not team.hasCaptain %}
+
+                <div class="alert alert-secondary">Add a team captain by clicking on a flag.</div>
+            {% else %}
+                <small><i>Click on a flag to change the team captain.</i></small>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    <div>
+    </div>
+
+    <div class="container card mb-5">
         {{ form_start(addPlayerForm) }}
         {{ form_row(addPlayerForm.givenName) }}
         {{ form_row(addPlayerForm.familyName) }}
-        <button type="submit" class="btn btn-primary"><i class="bi bi-person-plus-fill"></i> Add Player</button>
+        <button type="submit" class="btn btn-primary mb-3"><i class="bi bi-person-plus-fill"></i> Add Player</button>
         {{ form_end(addPlayerForm) }}
     </div>
-
-    <div>
-
-        <h1>Opponents</h1>
-        <div class="container">
-            <div class="row">
-                {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
-                    <div class="col-sm-4 col-xs-12 mb-3">
-                        <ul class="list-group">
-                            <li class="list-group-item text-bg-primary">
-                                <h3>{{ opponent.teamname }}</h3>
+    <div class="container">
+    <h2>{{ team.tournamentLevel }}-Opponents</h2>
+        <div class="row">
+            {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
+                <div class="col-sm-4 col-xs-12 mb-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>{{ opponent.teamname }}</strong>
+                        </li>
+                        {% if opponent.players is empty %}
+                            <li class="list-group-item">
+                                <i>No players registered yet.</i>
                             </li>
-                            {% if opponent.players is empty %}
-                                <li class="list-group-item">
-                                    <i>No players registered yet.</i>
-                                </li>
-                            {% endif %}
-                            {% for player in opponent.players %}
-                                <li class="list-group-item">
-                                    {{ player.givenName }} {{ player.familyName }}
-                                    {% if player.captain %}
-                                        <em>(Captain)</em>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <h1>Other Teams</h1>
-        <div class="container">
-            <div class="row">
-                {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
-                    <div class="col-sm-4 col-xs-12 mb-3">
-                        <ul class="list-group">
-                            <li class="list-group-item text-bg-primary">
-                                <h3>{{ opponent.teamname }}</h3>
+                        {% endif %}
+                        {% for player in opponent.players %}
+                            <li class="list-group-item">
+                                {{ player.givenName }} {{ player.familyName }}
+                                {% if player.captain %}
+                                    <em>(Captain)</em>
+                                {% endif %}
                             </li>
-                            {% if opponent.players is empty %}
-                                <li class="list-group-item">
-                                    No players registered yet.
-                                </li>
-                            {% endif %}
-                            {% for player in opponent.players %}
-                                <li class="list-group-item">
-                                    {{ player.givenName }} {{ player.familyName }}
-                                    {% if player.captain %}
-                                        <em>(Captain)</em>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endfor %}
-            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
         </div>
+    </div>
+    <div class="container">
+    <h2>Other Teams</h2>
+        <div class="row">
+            {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
+                <div class="col-sm-4 col-xs-12 mb-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>{{ opponent.teamname }}</strong>
+                        </li>
+                        {% if opponent.players is empty %}
+                            <li class="list-group-item">
+                                No players registered yet.
+                            </li>
+                        {% endif %}
+                        {% for player in opponent.players %}
+                            <li class="list-group-item">
+                                {{ player.givenName }} {{ player.familyName }}
+                                {% if player.captain %}
+                                    <em>(Captain)</em>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     </div>
 {% endblock %}

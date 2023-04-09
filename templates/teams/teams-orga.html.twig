@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '../base.html.twig' %}
 
 {% block title %}Team index{% endblock %}
 
@@ -26,10 +26,10 @@
                 <td>{{ team.teamname }}</td>
                 <td>{{ team.country }}</td>
                 <td>{{ team.tournamentLevel }}</td>
-                <td>{{ team.paid ? 'Yes' : 'No' }}</td>
+                <td>{{ team.paid ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>
                 <td>{{ team.email }}</td>
                 <td>{{ team.additionalEmails ? team.additionalEmails|join('<br>') : '' }}</td>
-                <td>{{ team.isVerified ? 'Yes' : 'No' }}</td>
+                <td>{{ team.isVerified ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>
                 <td>
                     <a href="{{ path('app_crud_team_edit', {'id': team.id}) }}">edit</a>
                 </td>

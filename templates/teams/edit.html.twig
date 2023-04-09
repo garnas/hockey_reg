@@ -7,6 +7,7 @@
     {% if is_granted('ROLE_ORGANIZER') %}
 <div class="card mb-5">
     <div class="card-body">
+
         <h3 class="card-text">Organizer</h3>
         <div class="mb-5">
             {{ form_start(teamOrganizerForm) }}
@@ -14,7 +15,13 @@
             <button class="btn btn-primary">Update</button>
             {{ form_end(teamOrganizerForm) }}
         </div>
-        {{ include('crud_team/_delete_form.html.twig') }}
+
+        <form method="post" action="{{ path('app_team_delete', {'id': team.id}) }}"
+              onsubmit="return confirm('Are you sure you want to delete {{ team.teamname }}?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+            <button class="btn btn-danger">Delete {{ team.teamname }}</button>
+        </form>
+
     </div>
 </div>
     {% endif %}
@@ -38,7 +45,7 @@
             {{ form_end(newPasswordForm) }}
         </div>
     </div>
-
-    <a href="{{ path('app_crud_team_index') }}">back to list</a>
-
+    {% if is_granted("ROLE_ORGANIZER") %}
+        <a href="{{ path('app_teams_orga') }}">Back to the Orga-List</a>
+    {% endif %}
 {% endblock %}

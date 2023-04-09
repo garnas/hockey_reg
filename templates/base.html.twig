@@ -19,11 +19,11 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
+
 {% block navbar %}
     {% include 'navbar.html.twig' %}
 {% endblock %}
-
+<div class="container">
 {% for error in app.flashes('error') %}
     <div class="alert alert-danger" role="alert">{{ error }}</div>
 {% endfor %}

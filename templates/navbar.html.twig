@@ -1,28 +1,34 @@
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {% set route_name = app.request.attributes.get('_route') %}
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <a class="navbar-brand" href="{{ path('app_home') }}">EUHC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="{{ path('app_home') }}">EUHC</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Info</a>
+                        <a class="nav-link {% if route_name == "app_home" %}active text-primary text-uppercase{% endif %}"
+                                {% if route_name == "app_home" %} aria-current="page" {% endif %}
+                           aria-current="page" href="{{ path('app_home') }}">Info</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                        <a class="nav-link {% if route_name == "app_register" %}active text-primary text-uppercase{% endif %}"
+                                {% if route_name == "app_register" %} aria-current="page" {% endif %}
+                           href="{{ path('app_register') }}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_teams') }}">Teams</a>
+                        <a class="nav-link {% if route_name == "app_teams" %}active text-primary text-uppercase{% endif %}"
+                                {% if route_name == "app_teams" %} aria-current="page" {% endif %}
+                           href="{{ path('app_teams') }}">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_teamcenter') }}">My Team</a>
+                        <a class="nav-link {% if route_name == "app_teamcenter" %}active text-primary text-uppercase{% endif %}"
+                                {% if route_name == "app_teamcenter" %} aria-current="page" {% endif %}
+                           href="{{ path('app_teamcenter') }}">My Team</a>
                     </li>
                     <li class="nav-item">
                         {% if is_granted('ROLE_USER') %}

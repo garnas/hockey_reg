@@ -35,6 +35,8 @@ security:
     access_control:
         # matches /admin/users/*
         - { route: 'app_myteam', roles: ROLE_TEAM }
+        - { route: 'app_team_edit', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
+        - { route: 'app_team_delete', roles: [ROLE_ORGANIZER] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

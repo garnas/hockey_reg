@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_ORGANIZER') %}
+<div class="card mb-5">
+    <div class="card-body">
+        <h3 class="card-text">Organizer</h3>
+        <div class="mb-5">
+            {{ form_start(teamOrganizerForm) }}
+            {{ form_widget(teamOrganizerForm) }}
+            <button class="btn btn-primary">Update</button>
+            {{ form_end(teamOrganizerForm) }}
+        </div>
+        {{ include('crud_team/_delete_form.html.twig') }}
+    </div>
+</div>
+    {% endif %}
+
+    <div class="card mb-5">
+        <div class="card-body">
+            <h3 class="card-text">Team</h3>
+            {{ form_start(teamUpdateForm) }}
+            {{ form_widget(teamUpdateForm) }}
+            <button class="btn btn-primary">Update</button>
+            {{ form_end(teamUpdateForm) }}
+        </div>
+    </div>
+
+    <div class="card mb-5">
+        <div class="card-body">
+            <h3 class="card-text">Password</h3>
+            {{ form_start(newPasswordForm) }}
+            {{ form_widget(newPasswordForm) }}
+            <button class="btn btn-primary">Change Password</button>
+            {{ form_end(newPasswordForm) }}
+        </div>
+    </div>
+
+    <a href="{{ path('app_crud_team_index') }}">back to list</a>
+
+{% endblock %}

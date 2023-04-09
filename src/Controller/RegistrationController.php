@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $team->setBezahlt(false);
+            $team->setPaid(false);
             $team->addTeamRole();
 
             $entityManager->persist($team);

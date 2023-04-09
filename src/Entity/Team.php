@@ -39,7 +39,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $tournamentLevel = null;
 
     #[ORM\Column]
-    private ?bool $bezahlt = null;
+    private ?bool $paid = false;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
@@ -152,14 +152,14 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isBezahlt(): ?bool
+    public function hasPaid(): ?bool
     {
-        return $this->bezahlt;
+        return $this->paid;
     }
 
-    public function setBezahlt(bool $bezahlt): self
+    public function setPaid(bool $paid): self
     {
-        $this->bezahlt = $bezahlt;
+        $this->paid = $paid;
 
         return $this;
     }

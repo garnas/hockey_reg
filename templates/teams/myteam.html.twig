@@ -3,6 +3,9 @@
 {% block title %}My Team{% endblock %}
 
 {% block body %}
+
+    {% include('crud_team/show.html.twig') %}
+
     <h1>Team Roster</h1>
     <h2>{{ team.teamname }}</h2>
     {% if team.players is not empty %}
@@ -53,9 +56,9 @@
             </table>
         </div>
         {% if not team.hasCaptain %}
-            <div class="alert alert-secondary">Please add a team captain by clicking on the flag.</div>
+            <div class="alert alert-secondary">Please add a team captain by clicking on a flag.</div>
         {% else %}
-            <small><i>Click on the flag to change the team captain.</i></small>
+            <small><i>Click on a flag to change the team captain.</i></small>
         {% endif %}
     {% endif %}
     <div>

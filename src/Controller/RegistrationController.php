@@ -29,30 +29,30 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $user = new Team();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $team = new Team();
+        $form = $this->createForm(RegistrationFormType::class, $team);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
+            $team->setPassword(
                 $userPasswordHasher->hashPassword(
-                    $user,
+                    $team,
                     $form->get('plainPassword')->getData()
                 )
             );
 
-            $user->setBezahlt(false);
-//            $user->setEmail()
+            $team->setBezahlt(false);
+            $team->addTeamRole();
 
-            $entityManager->persist($user);
+            $entityManager->persist($team);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $team,
                 (new TemplatedEmail())
                     ->from(new Address('mailbot@einrad.hockey', 'Mailbot'))
-                    ->to($user->getEmail())
+                    ->to($team->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );

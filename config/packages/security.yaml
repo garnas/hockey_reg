@@ -21,7 +21,7 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: false
-                default_target_path: app_teamcenter
+                default_target_path: app_myteam
             logout:
                 path: app_logout
             # activate different ways to authenticate
@@ -34,7 +34,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # matches /admin/users/*
-        - { route: 'app_teamcenter', roles: ROLE_USER }
+        - { route: 'app_myteam', roles: ROLE_TEAM }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

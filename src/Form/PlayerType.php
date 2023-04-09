@@ -20,10 +20,6 @@ class PlayerType extends AbstractType
             ->add('familyName', TextType::class, [
                 'label' => 'Family Name',
             ])
-            ->add('captain', CheckboxType::class, [
-                'label' => 'Team Captain',
-                'required' => false
-            ])
         ;
     }
 

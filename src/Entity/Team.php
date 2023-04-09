@@ -82,7 +82,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->teamname;
+        return (string)$this->teamname;
     }
 
     /**
@@ -228,6 +228,18 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function hasCaptain(): bool
+    {
+        return $this->players->exists(function ($key, $player) {
+           return $player->isCaptain();
+        });
+    }
+
+    public function addTeamRole(): void
+    {
+        $this->roles[] = 'ROLE_TEAM';
     }
 
 }

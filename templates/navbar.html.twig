@@ -1,6 +1,7 @@
 {% block navbar %}
     {% set route_name = app.request.attributes.get('_route') %}
 
+    <img  style="width: 100%;" src="{{ asset("assets/e_short.jpg") }}" class="img-fluid" alt="...">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
@@ -32,10 +33,10 @@
                                 {% if route_name == "app_team_my" %} aria-current="page" {% endif %}
                            href="{{ path('app_team_my') }}">My Team</a>
                     </li>
-                    {% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_ORGANIZER') %}
                         <li class="nav-item">
-                            <a class="nav-link btn btn-secondary {% if route_name == "app_team_my" %}active text-primary text-uppercase{% endif %}"
-                                    {% if route_name == "app_team_my" %} aria-current="page" {% endif %}
+                            <a class="nav-link btn btn-secondary {% if route_name == "app_orga_teams" %}active text-primary text-uppercase{% endif %}"
+                                    {% if route_name == "app_orga_teams" %} aria-current="page" {% endif %}
                                href="{{ path('app_orga_teams') }}">Edit Teams</a>
                         </li>
                     {% endif %}

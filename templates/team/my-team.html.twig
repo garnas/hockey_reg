@@ -57,24 +57,26 @@
                 </table>
             </div>
             {% if not team.hasCaptain %}
-
                 <div class="alert alert-secondary">Add a team captain by clicking on a flag.</div>
             {% else %}
                 <small><i>Click on a flag to change the team captain.</i></small>
             {% endif %}
+        {% else %}
+            <p><i>No players added yet.</i></p>
         {% endif %}
     </div>
 
-    <div class="container card mb-5">
+    <div class="container card my-3">
+        <div class="mt-3"></div>
         {{ form_start(addPlayerForm) }}
         {{ form_row(addPlayerForm.givenName) }}
         {{ form_row(addPlayerForm.familyName) }}
         <button type="submit" class="btn btn-primary mb-3"><i class="bi bi-person-plus-fill"></i> Add Player</button>
         {{ form_end(addPlayerForm) }}
     </div>
-    <div class="container">
+    <div class="container my-3">
         <h2>{{ team.tournamentLevel }}-Opponents</h2>
-        <div class="row">
+        <div class="row my-3">
             {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
                 <div class="col-sm-4 col-xs-12 mb-3">
                     <ul class="list-group">
@@ -99,9 +101,9 @@
             {% endfor %}
         </div>
     </div>
-    <div class="container">
+    <div class="container my-3">
         <h2>Other Teams</h2>
-        <div class="row">
+        <div class="row my-3">
             {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
                 <div class="col-sm-4 col-xs-12 mb-3">
                     <ul class="list-group">

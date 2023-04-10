@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+
+    <h1>Teams</h1>
+    {% if teams is empty %}
+        <p>No teams registered yet.</p>
+    {% else %}
+        {% include('team/teams.html.twig') with {'title': 'A-Tournament', 'filter': 'A'} %}
+
+        {% include('team/teams.html.twig') with {'title': 'B-Tournament', 'filter': 'B'} %}
+
+        {% include('team/teams.html.twig') with {'title': 'Undecided',  'filter': 'Undecided'} %}
+    {% endif %}
+{% endblock %}

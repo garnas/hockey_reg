@@ -16,7 +16,7 @@
             {{ form_end(teamOrganizerForm) }}
         </div>
 
-        <form method="post" action="{{ path('app_team_delete', {'id': team.id}) }}"
+        <form method="post" action="{{ path('app_orga_remove_team', {'id': team.id}) }}"
               onsubmit="return confirm('Are you sure you want to delete {{ team.teamname }}?');">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
             <button class="btn btn-danger">Delete {{ team.teamname }}</button>
@@ -46,6 +46,6 @@
         </div>
     </div>
     {% if is_granted("ROLE_ORGANIZER") %}
-        <a href="{{ path('app_teams_orga') }}">Back to the Orga-List</a>
+        <a href="{{ path('app_orga_teams') }}">Back to the Orga-List</a>
     {% endif %}
 {% endblock %}

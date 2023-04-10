@@ -27,8 +27,8 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if route_name == "app_myteam" %}active text-primary text-uppercase{% endif %}"
-                                {% if route_name == "app_myteam" %} aria-current="page" {% endif %}
-                           href="{{ path('app_myteam') }}">My Team</a>
+                                {% if route_name == "app_team_my" %} aria-current="page" {% endif %}
+                           href="{{ path('app_team_my') }}">My Team</a>
                     </li>
                     <li class="nav-item">
                         {% if is_granted('ROLE_USER') %}

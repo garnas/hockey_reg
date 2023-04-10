@@ -8,9 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/player')]
 class PlayerController extends AbstractController
 {
-    #[Route('/player/{playerId}', name: 'app_remove_player', methods: ['POST'])]
+    #[Route('/{playerId}/delete', name: 'app_team_remove_player', methods: ['POST'])]
     public function removePlayer(int $playerId, PlayerRepository $playerRepository): Response
     {
         /** @var Team $team */
@@ -25,10 +26,10 @@ class PlayerController extends AbstractController
         } else {
             $this->addFlash("error", "No player has been removed.");
         }
-        return $this->redirectToRoute('app_myteam');
+        return $this->redirectToRoute('app_team_my');
     }
 
-    #[Route('/captain/{playerId}', name: 'app_toggle_captain', methods: ['POST'])]
+    #[Route('/captain/{playerId}', name: 'app_team_toggle_captain', methods: ['POST'])]
     public function toggleCaptain(int $playerId, PlayerRepository $playerRepository): Response
     {
         /** @var Team $team */
@@ -53,7 +54,7 @@ class PlayerController extends AbstractController
             $this->addFlash("error", "Error - Captain could not be changed.");
         }
 
-        return $this->redirectToRoute('app_myteam');
+        return $this->redirectToRoute('app_team_my');
     }
 
 }

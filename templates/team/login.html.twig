@@ -3,6 +3,13 @@
 
 
 {% block body %}
+
+    {% if app.user %}
+        <div class="alert alert-success">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
     {% if error %}
         <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -21,10 +28,12 @@
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input required type="password" class="form-control" id="password" name="_password" aria-describedby="passwordHelp">
-            <div id="passwordHelp" class="form-text">Contact {{ app.request.server.get('EUHC_MAIN_EMAIL') }} to reset your password.</div>
-
-</div>
+            <input required type="password" class="form-control" id="password" name="_password"
+                   aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Contact {{ app.request.server.get('EUHC_MAIN_EMAIL') }} to reset
+                your password.
+            </div>
+        </div>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <div class="d-grid gap-2">

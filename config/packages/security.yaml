@@ -5,40 +5,53 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_team_provider:
             entity:
                 class: App\Entity\Team
                 property: teamname
+        app_organizer_provider:
+            entity:
+                class: App\Entity\Organizer
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            lazy: true
-            provider: app_user_provider
 
+        organizer:
+            pattern: ^/organizer
+            provider: app_organizer_provider
+            form_login:
+                login_path: app_orga_login
+                check_path: app_orga_login
+                enable_csrf: false
+                default_target_path: app_orga_teams
+            logout:
+                path: app_logout
+            context: my_context
+
+        team:
+            lazy: true
+            provider: app_team_provider
             form_login:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: false
-                default_target_path: app_myteam
+                default_target_path: app_team_my
             logout:
                 path: app_logout
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            context: my_context
+            switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { route: 'app_myteam', roles: ROLE_TEAM }
-        - { route: 'app_team_edit', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
-        - { route: 'app_team_delete', roles: [ROLE_ORGANIZER] }
-        - { route: 'app_teams_orga', roles: [ROLE_ORGANIZER] }
-        - { route: 'app_remove_player', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
-        - { route: 'app_toggle_captain', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
+        - { route: 'app_team_my', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
+        - { route: 'app_team_remove_player', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
+        - { route: 'app_team_toggle_captain', roles: [ROLE_TEAM, ROLE_ORGANIZER] }
+        - { route: 'app_team_edit', roles: [ ROLE_TEAM, ROLE_ORGANIZER ] }
+        - { route: 'app_orga_remove_team', roles: [ ROLE_ORGANIZER ] }
+        - { route: 'app_orga_teams', roles: [ ROLE_ORGANIZER ] }
 
 when@test:
     security:

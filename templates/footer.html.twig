@@ -1,24 +1,26 @@
 <div style="margin-top: 200px"></div>
-<div class="fixed-bottom bg-light">
-    <div class="border-bottom">
-    </div>
-    <footer class="navbar">
-        <div class="container">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link text-black-50" href="{{ path('app_register') }}">Imprint</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black-50" href="{{ path('app_register') }}">Data Protection</a>
-                </li>
-            </ul>
-            <div class="d-flex">
-                {% if not is_granted('ROLE_ORGANIZER') %}
-                    <a class="text-black-50 text-decoration-none" href="{{ path('app_orga_login') }}">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                        Orga-Login</a>
-                {% endif %}
-            </div>
+<div class="fixed-bottom">
+    <div class="bg-light">
+        <div class="border-bottom">
         </div>
-    </footer>
+        <footer class="navbar">
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-black-50" href="{{ path('app_imprint') }}">Imprint</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black-50" href="{{ path('app_privacy') }}">Privacy</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    {% if not is_granted('ROLE_ORGANIZER') %}
+                        <a class="text-black-50 text-decoration-none" href="{{ path('app_orga_login') }}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Orga-Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </footer>
+    </div>
 </div>

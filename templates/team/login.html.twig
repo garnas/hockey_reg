@@ -13,31 +13,33 @@
     {% if error %}
         <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    <div class="row justify-content-center">
 
-    <form action="{{ path('app_login') }}" method="post">
+        <form style="max-width: 600px" action="{{ path('app_login') }}" method="post">
 
-        <div class="mb-3">
-            <label for="username" class="form-label">Team</label>
-            <input required value="{{ last_username }}" class="form-control" list="datalistOptions" id="username"
-                   name="_username" placeholder="Type to search...">
-            <datalist id="datalistOptions">
-                {% for team in teams %}
-                <option value="{{ team.teamname }}">
-                    {% endfor %}
-            </datalist>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input required type="password" class="form-control" id="password" name="_password"
-                   aria-describedby="passwordHelp">
-            <div id="passwordHelp" class="form-text">Contact {{ app.request.server.get('EUHC_MAIN_EMAIL') }} to reset
-                your password.
+            <div class="mb-3">
+                <label for="username" class="form-label">Team</label>
+                <input required value="{{ last_username }}" class="form-control" list="datalistOptions" id="username"
+                       name="_username" placeholder="Type to search...">
+                <datalist id="datalistOptions">
+                    {% for team in teams %}
+                    <option value="{{ team.teamname }}">
+                        {% endfor %}
+                </datalist>
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input required type="password" class="form-control" id="password" name="_password"
+                       aria-describedby="passwordHelp">
+                <div id="passwordHelp" class="form-text">Contact {{ app.request.server.get('EUHC_MAIN_EMAIL') }} to
+                    reset your password.
+                </div>
+            </div>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-    </form>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -4,7 +4,6 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
-            {#        <div class="container-fluid"> #}
             <a class="navbar-brand" href="{{ path('app_home') }}">EUHC</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -33,17 +32,29 @@
                                 {% if route_name == "app_team_my" %} aria-current="page" {% endif %}
                            href="{{ path('app_team_my') }}">My Team</a>
                     </li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-secondary {% if route_name == "app_team_my" %}active text-primary text-uppercase{% endif %}"
+                                    {% if route_name == "app_team_my" %} aria-current="page" {% endif %}
+                               href="{{ path('app_orga_teams') }}">Edit Teams</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <div class="d-flex">
                     {% if is_granted('ROLE_USER') %}
-                        <a class="btn btn-primary me-2" href="{{ path('app_logout') }}">Logout</a>
+                        <a class="btn btn-primary me-2" href="{{ path('app_logout') }}">
+                            <i class="bi box-arrow-left"></i>
+                            Logout
+                        </a>
                     {% else %}
-                        <a class="btn btn-primary me-2" href="{{ path('app_login') }}">Login</a>
+                        <a class="btn btn-primary me-2" href="{{ path('app_login') }}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Login
+                        </a>
                     {% endif %}
                 </div>
             </div>
         </div>
-        {#    </div> #}
     </nav>
 
     <div style="margin-bottom: 60px"></div>

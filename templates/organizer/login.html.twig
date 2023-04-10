@@ -3,35 +3,37 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <form method="post" action="{{ path('app_orga_login') }}">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="row justify-content-center">
 
-        {% if app.user %}
-            <div class="alert alert-success">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        <form style="max-width: 600px;" method="post" action="{{ path('app_orga_login') }}">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="alert alert-success">
+                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" required value="{{ last_username }}" class="form-control" id="username"
+                       name="_username" placeholder="Type to search...">
             </div>
-        {% endif %}
-
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" required value="{{ last_username }}" class="form-control" id="username"
-                   name="_username" placeholder="Type to search...">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input required type="password" class="form-control" id="password" name="_password"
-                   aria-describedby="passwordHelp">
-            <div id="passwordHelp" class="form-text">Contact {{ app.request.server.get('EUHC_MAIN_EMAIL') }} to reset
-                your password.
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input required type="password" class="form-control" id="password" name="_password"
+                       aria-describedby="passwordHelp">
+                <div id="passwordHelp" class="form-text">Contact {{ app.request.server.get('EUHC_MAIN_EMAIL') }} to
+                    reset
+                    your password.
+                </div>
             </div>
-        </div>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-    </form>
-
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger">Login (Organizer)</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

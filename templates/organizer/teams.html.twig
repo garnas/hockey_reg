@@ -4,48 +4,51 @@
 
 {% block body %}
     <h1>Teams</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Country</th>
-                <th class="text-center">TournamentLevel</th>
-                <th class="text-center">Paid</th>
-                <th>Email</th>
-                <th>Additional Emails</th>
-                <th class="text-center">IsVerified</th>
-                <th class="text-center" colspan="2">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for team in teams %}
-            <tr>
-                <td>{{ team.id }}</td>
-                <td>{{ team.teamname }}</td>
-                <td>{{ team.country }}</td>
-                <td class="text-center">{{ team.tournamentLevel }}</td>
-                <td class="text-center">{{ team.paid ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>
-                <td>{{ team.email }}</td>
-                <td>{{ team.additionalEmails ? team.additionalEmails|join('<br>') : '' }}</td>
-                <td class="text-center">{{ team.isVerified ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>
-                <td class="text-center">
-                    <a href="{{ path('app_team_my', {'id': team.id}) }}">
-                        <i class="bi bi-people-fill"></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ path('app_team_edit', {'id': team.id}) }}">
-                        <i class="bi bi-pencil-fill"></i>
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{#    <div class="container">#}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th class="text-center">TournamentLevel</th>
+                    <th class="text-center">Paid</th>
+                    <th>Email</th>
+                    <th>Additional Emails</th>
+                    <th class="text-center">IsVerified</th>
+                    <th class="text-center" colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td>{{ team.id }}</td>
+                        <td>{{ team.teamname }}</td>
+                        <td>{{ team.country }}</td>
+                        <td class="text-center">{{ team.tournamentLevel }}</td>
+                        <td class="text-center">{{ team.paid ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>
+                        <td>{{ team.email }}</td>
+                        <td>{{ team.additionalEmails ? team.additionalEmails|join('<br>') : '' }}</td>
+                        <td class="text-center">{{ team.isVerified ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_team_my', {'id': team.id}) }}">
+                                <i class="bi bi-people-fill"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('app_team_edit', {'id': team.id}) }}">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{#    </div>#}
 {% endblock %}

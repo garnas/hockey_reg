@@ -14,7 +14,9 @@
             </ul>
             <div class="d-flex">
                 {% if not is_granted('ROLE_ORGANIZER') %}
-                    <a class="me-2 text-decoration-none" href="{{ path('app_orga_login') }}">Organizer Login</a>
+                    <a class="me-2 text-black-50 text-decoration-none" href="{{ path('app_orga_login') }}">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Organizer Login</a>
                 {% endif %}
             </div>
         </div>

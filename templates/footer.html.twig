@@ -1,0 +1,22 @@
+<div style="margin-top: 200px"></div>
+<div class="fixed-bottom bg-light">
+    <div class="border-bottom">
+    </div>
+    <footer class="navbar">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="{{ path('app_register') }}">Imprint</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="{{ path('app_register') }}">Data Protection</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                {% if not is_granted('ROLE_ORGANIZER') %}
+                    <a class="me-2 text-decoration-none" href="{{ path('app_orga_login') }}">Organizer Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </footer>
+</div>

@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Register</h1>
 
+    <div class="alert alert-success">You can still change the information entered here after your registration (e.g. the team name).</div>
+
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.teamname) }}
         {{ form_row(registrationForm.email) }}

@@ -53,6 +53,17 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
     private Collection $players;
 
+    public function getCaptainName(): string
+    {
+        $captain = $this->players->findFirst(function(int $key, Player $value): bool {
+            return $value->isCaptain();
+        });
+        if ($captain === null) {
+            return '';
+        }
+        return $captain->getGivenName() . ' ' . $captain->getFamilyName();
+    }
+
     public function __construct()
     {
         $this->players = new ArrayCollection();

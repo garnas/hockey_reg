@@ -68,7 +68,7 @@ class Player
 
     public function isCaptain(): ?bool
     {
-        return $this->captain;
+        return $this->captain ?? false;
     }
 
     public function setCaptain(?bool $captain): self

@@ -100,6 +100,9 @@ class TeamController extends AbstractController
                 $team->addPlayer($player);
                 $playerRepository->save($player, true);
                 $this->addFlash("success", "Player has been added.");
+                if ($this->isGranted("ROLE_ORGANIZER")) {
+                    return $this->redirect('/team/' . $team->getId());
+                }
                 return $this->redirectToRoute('app_team_my');
             }
         }

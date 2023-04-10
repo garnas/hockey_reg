@@ -15,13 +15,13 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig');
     }
 
-    #[Route('/', name: 'app_imprint')]
+    #[Route('/imprint', name: 'app_imprint')]
     public function imprint(): Response
     {
         return $this->render('main/imprint.html.twig');
     }
 
-    #[Route('/', name: 'app_privacy')]
+    #[Route('/privacy', name: 'app_privacy')]
     public function privacy(): Response
     {
         return $this->render('main/dataprotection.html.twig');

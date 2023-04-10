@@ -104,7 +104,7 @@
     <div class="container my-3">
         <h2>Other Teams</h2>
         <div class="row my-3">
-            {% for opponent in teams|filter(opponent => team.tournamentLevel == opponent.tournamentLevel and opponent != team) %}
+            {% for opponent in teams|filter(opponent => team.tournamentLevel != opponent.tournamentLevel and opponent != team) %}
                 <div class="col-sm-4 col-xs-12 mb-3">
                     <ul class="list-group">
                         <li class="list-group-item">

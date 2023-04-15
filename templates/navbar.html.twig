@@ -1,7 +1,7 @@
 {% block navbar %}
     {% set route_name = app.request.attributes.get('_route') %}
 
-    <img  style="width: 100%;" src="{{ asset("assets/e_short.jpg") }}" class="img-fluid" alt="...">
+    <img  style="width: 100%;" src="{{ asset("assets/e_short.jpg") }}" class="img-fluid" alt="header image of unicycle hockey">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-0">
         <div class="container">
@@ -33,27 +33,35 @@
                     <li class="nav-item">
                         <a class="nav-link {% if route_name == "app_team_my" %}active text-primary text-uppercase{% endif %}"
                                 {% if route_name == "app_team_my" %} aria-current="page" {% endif %}
-                           href="{{ path('app_team_my') }}">My Team</a>
+                           href="{{ path('app_team_my') }}">
+                            {% if is_granted('ROLE_TEAM') %}
+                            {{ app.user.userIdentifier }}
+                            {% else %}
+                                My Team
+                            {% endif %}
+                        </a>
                     </li>
                     {% if is_granted('ROLE_ORGANIZER') %}
                         <li class="nav-item">
-                            <a class="nav-link btn btn-secondary {% if route_name == "app_orga_teams" %}active text-primary text-uppercase{% endif %}"
+                            <a class="nav-link btn btn-primary {% if route_name == "app_orga_teams" %}active text-primary text-uppercase{% endif %}"
                                     {% if route_name == "app_orga_teams" %} aria-current="page" {% endif %}
                                href="{{ path('app_orga_teams') }}">Edit Teams</a>
                         </li>
                     {% endif %}
                 </ul>
-                <div class="d-flex">
-                        <a class="btn btn-sm btn-primary me-2 py-1 px-2"
+                <div class="d-flex mb-2 mb-lg-0">
+                        <a class="btn btn-sm btn-primary py-1 px-2"
                            href="{{ is_granted('ROLE_USER') ? path('app_logout') : path('app_login') }}">
-                            {{ is_granted('ROLE_USER')
-                            ?"<i class='bi bi-box-arrow-left'></i> Logout"
-                            : "<i class='bi bi-box-arrow-right'></i> Login" }}
-                        </a>'
+                            {% if is_granted('ROLE_USER') %}
+                                Logout
+                            {% else %}
+                                <i class='bi bi-box-arrow-right'></i> Login
+                            {% endif %}
+                        </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div style="margin-bottom: 60px"></div>
+    <div class="mb-3 mb-lg-5"></div>
 {% endblock %}

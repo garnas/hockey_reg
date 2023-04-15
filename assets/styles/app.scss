@@ -1,4 +1,16 @@
-body {
-    background-color: lightgray;
-}
+//
+//$body-bg: #000;
+//$body-color: #111;
+
+//$primary: #fff000;
+//$secondary: #7b44ff;
+
+$primary: #7b44ff;
+$secondary: #fff000;
+
 @import "~bootstrap/scss/bootstrap";
+
+.myFlag svg {
+  max-height: 24px;
+  max-width: 24px;
+}

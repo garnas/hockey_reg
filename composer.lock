@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ef92f5f0a9b6703c150506d39fd2170",
+    "content-hash": "109a18181c85a742c5d1301768127a08",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2031,6 +2031,89 @@
             "time": "2021-07-14T16:46:02+00:00"
         },
         {
+            "name": "rinvex/countries",
+            "version": "v9.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rinvex/countries.git",
+                "reference": "e432598483983945ccefe131925a0ab9fbb31bdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rinvex/countries/zipball/e432598483983945ccefe131925a0ab9fbb31bdf",
+                "reference": "e432598483983945ccefe131925a0ab9fbb31bdf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.32.0",
+                "phpunit/phpunit": "^9.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rinvex\\Country\\Providers\\CountryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Rinvex\\Country\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rinvex LLC",
+                    "email": "help@rinvex.com",
+                    "homepage": "https://rinvex.com"
+                },
+                {
+                    "name": "Abdelrahman Omran",
+                    "email": "me@omranic.com",
+                    "homepage": "https://omranic.com",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "The Generous PHP Community",
+                    "homepage": "https://github.com/rinvex/countries/contributors"
+                }
+            ],
+            "description": "Rinvex Countries is a simple and lightweight package for retrieving country details with flexibility. A whole bunch of data including name, demonym, capital, iso codes, dialling codes, geo data, currencies, flags, emoji, and other attributes for all 250 countries worldwide at your fingertips.",
+            "homepage": "https://rinvex.com",
+            "keywords": [
+                "Flexible",
+                "Simple",
+                "countries",
+                "country",
+                "currencies",
+                "demonym",
+                "dialling",
+                "emoji",
+                "flags",
+                "geographic",
+                "languages",
+                "rinvex",
+                "svg"
+            ],
+            "support": {
+                "docs": "https://github.com/rinvex/countries/blob/master/README.md",
+                "email": "help@rinvex.com",
+                "issues": "https://github.com/rinvex/countries/issues",
+                "source": "https://github.com/rinvex/countries"
+            },
+            "time": "2023-01-08T23:56:07+00:00"
+        },
+        {
             "name": "sensio/framework-extra-bundle",
             "version": "v6.2.10",
             "source": {
@@ -2107,6 +2190,60 @@
             },
             "abandoned": "Symfony",
             "time": "2023-02-24T14:57:12+00:00"
+        },
+        {
+            "name": "stidges/country-flags",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stidges/country-flags.git",
+                "reference": "303f78f3f352c86a7d9bcf410b8bb91004843922"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stidges/country-flags/zipball/303f78f3f352c86a7d9bcf410b8bb91004843922",
+                "reference": "303f78f3f352c86a7d9bcf410b8bb91004843922",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stidges\\CountryFlags\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stidges",
+                    "email": "info@stidges.com",
+                    "homepage": "https://stidges.com"
+                }
+            ],
+            "description": "A small package to convert a country code to the corresponding country flag emoji",
+            "homepage": "https://github.com/stidges/country-flags",
+            "keywords": [
+                "countries",
+                "country",
+                "country-flags",
+                "emoji",
+                "flag",
+                "unicode"
+            ],
+            "support": {
+                "issues": "https://github.com/stidges/country-flags/issues",
+                "source": "https://github.com/stidges/country-flags/tree/v2.0.0"
+            },
+            "time": "2021-01-08T13:52:23+00:00"
         },
         {
             "name": "symfony/apache-pack",

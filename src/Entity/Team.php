@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TeamRepository;
+use App\Util\Util;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -55,7 +56,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getCaptainName(): string
     {
-        $captain = $this->players->findFirst(function(int $key, Player $value): bool {
+        $captain = $this->players->findFirst(function (int $key, Player $value): bool {
             return $value->isCaptain();
         });
         if ($captain === null) {
@@ -244,13 +245,18 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     public function hasCaptain(): bool
     {
         return $this->players->exists(function ($key, $player) {
-           return $player->isCaptain();
+            return $player->isCaptain();
         });
     }
 
     public function addTeamRole(): void
     {
         $this->roles[] = 'ROLE_TEAM';
+    }
+
+    public function getFlag(): string
+    {
+        return Util::getCountryFlag($this->country);
     }
 
 }

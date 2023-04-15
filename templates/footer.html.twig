@@ -3,21 +3,21 @@
     <div class="bg-light">
         <div class="border-bottom">
         </div>
-        <footer class="navbar">
+        <footer class="navbar py-0">
             <div class="container">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link text-black-50" href="{{ path('app_imprint') }}">Imprint</a>
+                        <a class="nav-link text-black-50" href="{{ path('app_imprint') }}"><small>Imprint</small></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black-50" href="{{ path('app_privacy') }}">Privacy</a>
+                        <a class="nav-link text-black-50" href="{{ path('app_privacy') }}"><small>Privacy</small></a>
                     </li>
                 </ul>
                 <div class="d-flex">
                     {% if not is_granted('ROLE_ORGANIZER') %}
                         <a class="text-black-50 text-decoration-none" href="{{ path('app_orga_login') }}">
                             <i class="bi bi-box-arrow-in-right"></i>
-                            Orga-Login</a>
+                            <small>Orga-Login</small></a>
                     {% endif %}
                 </div>
             </div>

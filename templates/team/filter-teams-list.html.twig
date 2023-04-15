@@ -15,9 +15,9 @@
                 {% for team in teams|filter(team => team.tournamentLevel == filter) %}
                     <tr>
                         <td>
-                            {% if team.isVerified %}
-                                <i class="bi bi-check-circle"></i>
-                            {% endif %}
+                            <div class="myFlag text-center">
+                                {{ team.getFlag|raw }}
+                            </div>
                         </td>
                         <td>
                             {{ team.teamname }}

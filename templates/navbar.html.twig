@@ -3,9 +3,11 @@
 
     <img  style="width: 100%;" src="{{ asset("assets/e_short.jpg") }}" class="img-fluid" alt="...">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-0">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('app_home') }}">EUHC</a>
+            <a class="navbar-brand" href="{{ path('app_home') }}">
+                <img src="{{ asset('assets/logo-invert-removebg-cropped.png') }}" height="40"  class="d-inline-block align-text-top">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -42,17 +44,12 @@
                     {% endif %}
                 </ul>
                 <div class="d-flex">
-                    {% if is_granted('ROLE_USER') %}
-                        <a class="btn btn-primary me-2" href="{{ path('app_logout') }}">
-                            <i class="bi box-arrow-left"></i>
-                            Logout
-                        </a>
-                    {% else %}
-                        <a class="btn btn-primary me-2" href="{{ path('app_login') }}">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            Login
-                        </a>
-                    {% endif %}
+                        <a class="btn btn-sm btn-primary me-2 py-1 px-2"
+                           href="{{ is_granted('ROLE_USER') ? path('app_logout') : path('app_login') }}">
+                            {{ is_granted('ROLE_USER')
+                            ?"<i class='bi bi-box-arrow-left'></i> Logout"
+                            : "<i class='bi bi-box-arrow-right'></i> Login" }}
+                        </a>'
                 </div>
             </div>
         </div>

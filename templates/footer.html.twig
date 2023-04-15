@@ -6,19 +6,25 @@
         <footer class="navbar py-0">
             <div class="container">
                 <ul class="nav">
+                    {% if not is_granted('ROLE_ORGANIZER') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-black-50 px-1" href="{{ path('app_orga_login') }}">
+                                <i class="bi bi-lock"></i>
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link text-black-50" href="{{ path('app_imprint') }}"><small>Imprint</small></a>
+                        <a class="nav-link text-black-50 px-1" href="{{ path('app_imprint') }}"><small>Imprint</small></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black-50" href="{{ path('app_privacy') }}"><small>Privacy</small></a>
+                        <a class="nav-link text-black-50 px-1" href="{{ path('app_privacy') }}"><small>Privacy</small></a>
                     </li>
+
                 </ul>
                 <div class="d-flex">
-                    {% if not is_granted('ROLE_ORGANIZER') %}
-                        <a class="text-black-50 text-decoration-none" href="{{ path('app_orga_login') }}">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            <small>Orga-Login</small></a>
-                    {% endif %}
+                    <a href="mailto:euhc@einrad.hockey" class="text-black-50 text-decoration-none">
+                        <small>euhc@einrad.hockey</small>
+                    </a>
                 </div>
             </div>
         </footer>

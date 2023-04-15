@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 #[UniqueEntity(fields: ['teamname'], message: 'There is already an account with this teamname')]
@@ -51,7 +52,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
+    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class, cascade: ['remove'] )]
     private Collection $players;
 
     public function getCaptainName(): string

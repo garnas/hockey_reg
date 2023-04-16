@@ -49,7 +49,7 @@ class PlayerController extends AbstractController
             $player->setCaptain(!$player->isCaptain());
 
             $playerRepository->save($player, true);
-
+            $this->addFlash("success", "Captain has been changed.");
         } else {
             $this->addFlash("error", "Error - Captain could not be changed.");
         }

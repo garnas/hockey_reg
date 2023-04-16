@@ -1,12 +1,12 @@
 {% block navbar %}
     {% set route_name = app.request.attributes.get('_route') %}
 
-    <img  style="width: 100%;" src="{{ asset("assets/header.png") }}" class="img-fluid" alt="header image of unicycle hockey">
+    <img  style="width: 100%;" src="{{ asset("assets/header_2.jpg") }}" class="img-fluid" alt="header image of unicycle hockey">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-0">
         <div class="container">
             <a class="navbar-brand" href="{{ path('app_home') }}">
-                <img src="{{ asset('assets/logo-hor-invert-rmbg-cropped.png') }}" height="40"  class="d-inline-block align-text-top">
+                <img src="{{ asset('assets/logo-hor-invert-rmbg-cropped.png') }}" height="40"  class="d-inline-block align-text-top" alt="logo for nav">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -43,9 +43,9 @@
                     </li>
                     {% if is_granted('ROLE_ORGANIZER') %}
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary {% if route_name == "app_orga_teams" %}active text-primary text-uppercase{% endif %}"
+                            <a class="nav-link btn btn-secondary {% if route_name == "app_orga_teams" %}active text-primary text-uppercase{% else %}text-black{% endif %}"
                                     {% if route_name == "app_orga_teams" %} aria-current="page" {% endif %}
-                               href="{{ path('app_orga_teams') }}">Edit Teams</a>
+                               href="{{ path('app_orga_teams') }}">Supervisor</a>
                         </li>
                     {% endif %}
                 </ul>

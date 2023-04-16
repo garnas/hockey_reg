@@ -6,12 +6,14 @@ use App\Entity\Team;
 use App\Form\RegistrationFormType;
 use App\Repository\TeamRepository;
 use App\Security\EmailVerifier;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Exception\RfcComplianceException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -27,7 +29,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, TeamRepository $teamRepository): Response
     {
         $team = new Team();
         $form = $this->createForm(RegistrationFormType::class, $team);
@@ -44,31 +46,45 @@ class RegistrationController extends AbstractController
 
             $team->setPaid(false);
             $team->addTeamRole();
-
-            $entityManager->persist($team);
-            $entityManager->flush();
+            $teamRepository->save($team, true);
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $team,
-                (new TemplatedEmail())
-                    ->from(new Address('mailbot@einrad.hockey', 'Mailbot'))
-                    ->to($team->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
+            try {
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $team,
+                    (new TemplatedEmail())
+                        ->from(new Address('mailbot@einrad.hockey', 'Unicycle Hockey'))
+                        ->to($team->getEmail())
+                        ->subject('Please Confirm your Email')
+                        ->htmlTemplate('registration/confirmation_email.html.twig')
+                );
+            } catch (RfcComplianceException $e) {
+                $teamRepository->remove($team, true);
+                $this->addFlash('error', 'Could not send verification email.');
+                $this->addFlash('error', $e->getMessage());
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
+            } catch (TransportExceptionInterface $e) {
+                $teamRepository->remove($team, true);
+                $this->addFlash('error', 'Could not send verification email.');
+                $this->addFlash('error', $e->getMessage());
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
+            }
+
             $this->addFlash('success', 'An email verification has been send.');
 
             return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form,
         ]);
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, TeamRepository $teamRepository): Response
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator, TeamRepository $teamRepository, Security $security): Response
     {
         $id = $request->get('id');
 
@@ -82,6 +98,11 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
+        if ($user->isVerified()) {
+            $this->addFlash("success", "Your email is already verified.");
+            return $this->redirectToRoute('app_login');
+        }
+
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -89,7 +110,7 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
-
+        $security->login($user);
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_team_my');

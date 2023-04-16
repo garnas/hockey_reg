@@ -1,5 +1,6 @@
 {% block body %}
-    <h1>{{ team.teamname }}</h1>
+    <h1><span class="myFlagLarge">{{ team.flag|raw }}</span> {{ team.teamname }}</h1>
+
     <div class="table-responsive">
         <table class="table table-group-divider table-sm">
             <tbody>
@@ -27,10 +28,10 @@
                 <th>Email</th>
                 <td>{{ team.email }}</td>
             </tr>
-            <tr>
-                <th>Additional Emails</th>
-                <td>{{ team.additionalEmails ? team.additionalEmails|join(', ') : '' }}</td>
-            </tr>
+            {#            <tr> #}
+            {#                <th>Additional Emails</th> #}
+            {#                <td>{{ team.additionalEmails ? team.additionalEmails|join(', ') : '' }}</td> #}
+            {#            </tr> #}
             <tr>
                 <th>Email Verified</th>
                 <td>{{ team.isVerified ? '<i class="bi bi-check-circle-fill">' : '<i class="bi bi-x-circle">' }}</td>

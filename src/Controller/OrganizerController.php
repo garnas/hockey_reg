@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Team;
 use App\Repository\TeamRepository;
+use App\Util\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,10 @@ class OrganizerController extends AbstractController
     #[Route('/teams', name: 'app_orga_teams', methods: ['GET'])]
     public function index(TeamRepository $teamRepository): Response
     {
+        $teams = $teamRepository->findAll();
         return $this->render('organizer/teams.html.twig', [
-            'teams' => $teamRepository->findAll(),
+            'teams' => $teams,
+            'uniqueEmails' => Util::uniqueEmails($teams)
         ]);
     }
 

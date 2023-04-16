@@ -23,7 +23,7 @@ class Team implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $teamname = null;
+    private string $teamname;
 
     #[ORM\Column]
     private array $roles = [];

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player
@@ -14,10 +15,12 @@ class Player
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $givenName = null;
+    #[Assert\NotBlank]
+    private string $givenName;
 
     #[ORM\Column(length: 255)]
-    private ?string $familyName = null;
+    #[Assert\NotBlank]
+    private string $familyName;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
     private ?Team $team = null;

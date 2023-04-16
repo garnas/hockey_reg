@@ -4,10 +4,12 @@ namespace App\Form;
 
 use App\Entity\Team;
 use App\Util\Util;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +19,9 @@ class TeamType extends AbstractType
     public static function addCommonFields(FormBuilderInterface $builder): void
     {
         $builder
-            ->add('teamname')
+            ->add('teamname', TextType::class, [
+                'label' => 'Team'
+            ])
             ->add('email', EmailType::class, [
                 'attr' => ['autocomplete' => 'email']
             ])
@@ -27,6 +31,7 @@ class TeamType extends AbstractType
                 'help' => 'Select the country for which your team plays. You can also choose International.',
             ])
             ->add('tournamentLevel', ChoiceType::class, [
+                'label' => 'Tournament Level',
                 'placeholder' => 'Select ...',
                 'help' => 'Select the tournament in which your team prefers to participate.',
                 'choices' => [

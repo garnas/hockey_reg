@@ -3,6 +3,8 @@
 namespace App\Util;
 
 
+use App\Entity\Team;
+
 class Util
 {
     public const COUNTRIES = [
@@ -52,6 +54,19 @@ class Util
                     </svg>';
         }
         return country($countryCode)->getFlag();
+    }
+
+    /**
+     * @param Team[] $teams
+     * @return array
+     */
+    public static function uniqueEmails(array $teams): array
+    {
+        $emails = [];
+        foreach ($teams as $team) {
+            $emails[] = $team->getEmail();
+        }
+        return array_unique($emails);
     }
 
 }

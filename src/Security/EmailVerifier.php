@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Team;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,13 +22,16 @@ class EmailVerifier
     ) {
     }
 
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function sendEmailConfirmation(string $verifyEmailRouteName, Team $team, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
-            $user->getId(),
-            $user->getEmail(),
-            ['id' => $user->getId()]
+            $team->getId(),
+            $team->getEmail(),
+            ['id' => $team->getId()]
         );
 
         $context = $email->getContext();
@@ -37,23 +41,19 @@ class EmailVerifier
 
         $email->context($context);
 
-        try {
-            $this->mailer->send($email);
-        } catch (TransportExceptionInterface $e) {
-            // TODO Handle Error eg Mailbox unavailable
-        }
+        $this->mailer->send($email);
     }
 
     /**
      * @throws VerifyEmailExceptionInterface
      */
-    public function handleEmailConfirmation(Request $request, UserInterface $user): void
+    public function handleEmailConfirmation(Request $request, Team $team): void
     {
-        $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+        $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $team->getId(), $team->getEmail());
 
-        $user->setIsVerified(true);
+        $team->setIsVerified(true);
 
-        $this->entityManager->persist($user);
+        $this->entityManager->persist($team);
         $this->entityManager->flush();
     }
 }

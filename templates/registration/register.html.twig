@@ -20,7 +20,7 @@
         team name).
     </div>
 
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm, { 'attr': {'data-turbo': 'false'} }) }}
     {{ form_row(registrationForm.teamname) }}
     {{ form_row(registrationForm.email) }}
 
@@ -30,6 +30,6 @@
     {{ form_row(registrationForm.tournamentLevel) }}
     {{ form_row(registrationForm.country) }}
 {#    {{ form_row(registrationForm.agreeTerms) }}#}
-    <button type="submit" class="btn btn-primary">Register</button>
+    <input type="submit" value="Register" class="btn btn-primary">
     {{ form_end(registrationForm) }}
 {% endblock %}

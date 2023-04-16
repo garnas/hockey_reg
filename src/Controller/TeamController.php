@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Router;
 
 #[Route('/team')]
 class TeamController extends AbstractController
@@ -28,14 +29,19 @@ class TeamController extends AbstractController
 
         // My Team and Organizer
 
-        //Update team
+        // Update team
+        $teamname_backup = $team->getTeamname(); # The teamname is also the user name -> Ungültiger Teamname -> der User fliegt raus
         $teamUpdateForm = $this->createForm(TeamType::class, $team);
-        $teamUpdateForm->handleRequest($request);
+        $teamUpdateForm->handleRequest($request); # Teamname wird hiermit geändert, wenn submitted
+        if ($teamUpdateForm->isSubmitted() && !$teamUpdateForm->isValid()) {
+            $team->setTeamname($teamname_backup);
+        }
         if ($teamUpdateForm->isSubmitted() && $teamUpdateForm->isValid()) {
             $teamRepository->save($team, true);
-
-            return $this->redirectToRoute('app_team_my');
+            $this->addFlash('success', 'Team data has been updated.');
+            return $this->redirectToRoute('app_team_my', ['id' => $team->getId()]);
         }
+
 
         // Update password
         $newPasswordForm = $this->createForm(NewPasswordType::class, $team);
@@ -48,7 +54,9 @@ class TeamController extends AbstractController
                 )
             );
             $teamRepository->save($team, true);
-            return $this->redirectToRoute('app_team_my');
+            $this->addFlash('success', 'Password has been changed.');
+            return $this->redirectToRoute('app_team_my', ['id' => $team->getId()]);
+
         }
 
         // Organizer only
@@ -119,9 +127,9 @@ class TeamController extends AbstractController
 
         $teams = $teamRepository->findAll();
         return $this->render('team/my-team.html.twig', [
-            'addPlayerForm' => $addPlayerForm->createView(),
-            'removePlayerForm' => $removePlayerForm->createView(),
-            'toggleCaptainForm' => $toggleCaptainForm->createView(),
+            'addPlayerForm' => $addPlayerForm,
+            'removePlayerForm' => $removePlayerForm,
+            'toggleCaptainForm' => $toggleCaptainForm,
             'team' => $team,
             'teams' => $teams
         ]);

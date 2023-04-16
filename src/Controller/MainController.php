@@ -38,4 +38,11 @@ class MainController extends AbstractController
         ]);
     }
 
+    #[Route('/accomodations', name: 'app_accomodations')]
+    public function accomodations(): Response
+    {
+        $this->addFlash('success', "A list of accomodations should be soon online.");
+        return $this->render("main/accomodations.html.twig");
+    }
+
 }

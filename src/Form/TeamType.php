@@ -18,11 +18,13 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('teamname')
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'attr' => ['autocomplete' => 'email']
+            ])
             ->add('country', ChoiceType::class, [
                 'choices' => Util::getCountries(),
                 'placeholder' => 'Select ...',
-                'help' => 'Select the country for which your team plays.',
+                'help' => 'Select the country for which your team plays. You can also choose International.',
             ])
             ->add('tournamentLevel', ChoiceType::class, [
                 'placeholder' => 'Select ...',

@@ -6,7 +6,7 @@
 
     <div class="row row-cols-auto">
         <div class="col">
-            <img src="{{ asset('assets/logo.jpg') }}" class="img-fluid">
+            <img src="{{ asset('assets/logo-removebg.png') }}" class="img-fluid" alt="our logo">
         </div>
         <div class="col d-flex align-items-center">
                 <h1 class="text-break">Preliminary<br class="d-sm-none"> Registration</h1>
@@ -29,7 +29,7 @@
     }) }}
     {{ form_row(registrationForm.tournamentLevel) }}
     {{ form_row(registrationForm.country) }}
-    {{ form_row(registrationForm.agreeTerms) }}
+{#    {{ form_row(registrationForm.agreeTerms) }}#}
     <button type="submit" class="btn btn-primary">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

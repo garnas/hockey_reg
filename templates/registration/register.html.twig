@@ -9,14 +9,29 @@
             <img src="{{ asset('assets/logo-removebg.png') }}" class="img-fluid" alt="our logo">
         </div>
         <div class="col d-flex align-items-center">
-                <h1 class="text-break">Preliminary<br class="d-sm-none"> Registration</h1>
+            <h1 class="text-break">Preliminary<br class="d-sm-none"> Registration</h1>
         </div>
     </div>
     <div class="my-3">
         {{ include('main/infos.html.twig') }}
     </div>
-
-    <div class="alert alert-success">You can still change the information entered here after your registration (e. g. the
+    <div class="my-3">
+        <p>
+            The registration is team-based, meaning that one representative should register the team on the website and
+            add players to the team. You can add up to 10 players per team.
+        </p>
+        <p>
+            For a valid registration, you must register your team online and pay the registration fee until June 25th.
+            The date of receipt of payment to the specified account is decisive for timely registration.
+            You can add and remove players until the beginning of the tournament.
+        </p>
+        <p>
+            You can cancel your registration for free until June 25th and with a 50% fee until July 5th. After that, no
+            refunds will be provided.
+        </p>
+    </div>
+    <div class="alert alert-success">You can still change the information entered here after your registration (e. g.
+        the
         team name).
     </div>
 
@@ -29,7 +44,7 @@
     }) }}
     {{ form_row(registrationForm.tournamentLevel) }}
     {{ form_row(registrationForm.country) }}
-{#    {{ form_row(registrationForm.agreeTerms) }}#}
+    {#    {{ form_row(registrationForm.agreeTerms) }} #}
     <input type="submit" value="Register" class="btn btn-primary">
     {{ form_end(registrationForm) }}
 {% endblock %}

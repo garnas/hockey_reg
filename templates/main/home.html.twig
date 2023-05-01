@@ -2,31 +2,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="" style="">
+    <div class="">
         <img src="{{ asset("assets/flyer.jpg") }}" class="img-fluid rounded mx-auto d-block px-0 mb-0"
              alt="Flyer with save the date.">
-
+    </div>
+    <div class="my-5">
         <div class="my-b text-center">
             <blockquote class="blockquote">
                 Get ready for the most thrilling and adrenaline-pumping event of the year - the European Unicycle Hockey
                 Championships! Witness the best of the best as they compete in the fastest and most exhilarating sport
-                on one wheel.</blockquote>
+                on one wheel.
+            </blockquote>
         </div>
+    </div>
+    <div class="my-5">
         {{ include('main/infos.html.twig') }}
-
-        <div class="my-3">
-            <h1>What is unicycle hockey?</h1>
-            <p>
-                Unicycle hockey is a sport that combines unicycling and hockey. The game is played in a gym with two
-                teams of five  players each, with each player riding a unicycle and using a hockey stick to hit a tennis ball into the
-                opposing team's goal.
-            </p>
-            <h3 class="text-center link-primary">
-                <a href="https://www.youtube.com/live/3F6RKdSQXQE?feature=share&t=944" class="text-decoration-none">
-                    <i class="bi bi-film"></i>
-                    Video of unicycle hockey
-                </a>
-            </h3>
-        </div>
+    </div>
+    <div class="my-5">
+        <h2>What is unicycle hockey?</h2>
+        <p>
+            Unicycle hockey is a sport that combines unicycling and hockey. The game is played in a gym with two
+            teams of five players each, with each player riding a unicycle and using a hockey stick to hit a tennis ball
+            into the
+            opposing team's goal.
+        </p>
+        <h3 class="text-center link-primary">
+            <a href="https://www.youtube.com/live/3F6RKdSQXQE?feature=share&t=944" class="text-decoration-none">
+                <i class="bi bi-film"></i>
+                Video of unicycle hockey
+            </a>
+        </h3>
+    </div>
+    <div class="border-top my-5">
+        <p class="mt-3">German Unicycle Hockey League<br> <a class="link-primary text-decoration-none"
+                                                             href="https://einrad.hockey">www.einrad.hockey.de</a>
+        <p>Swiss Unicycle Hockey League<br> <a class="link-primary text-decoration-none"
+                                               href="https://www.swiss-iuc.ch/Organisation/Einrad/Einradhockey-Liga">www.swiss-ius.de</a>
+        </p>
     </div>
 {% endblock %}

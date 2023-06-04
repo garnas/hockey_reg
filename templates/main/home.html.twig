@@ -1,10 +1,10 @@
 {# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
 {% block body %}
-{#    <div class="">#}
-{#        <img src="{{ asset("assets/flyer.jpg") }}" class="img-fluid rounded mx-auto d-block px-0 mb-0"#}
-{#             alt="Flyer with save the date.">#}
-{#    </div>#}
+    {#    <div class=""> #}
+    {#        <img src="{{ asset("assets/flyer.jpg") }}" class="img-fluid rounded mx-auto d-block px-0 mb-0" #}
+    {#             alt="Flyer with save the date."> #}
+    {#    </div> #}
     <div class="my-5">
         <div class="my-b text-center">
             <blockquote class="blockquote">
@@ -15,11 +15,20 @@
         </div>
     </div>
     <div class="my-5">
-        <h1>Infos</h1>
         {{ include('main/infos.html.twig') }}
     </div>
     <div class="my-5">
-        <h1>News</h1>
+        <h1>Find a team or find additional players</h1>
+        <h3 class="text-center link-primary">
+            <a class="text-decoration-none" target="_blank"
+               href="https://forum.einrad.hockey">
+                <i class="bi bi-search-heart-fill me-1"></i>
+                https://forum.einrad.hockey
+            </a>
+        </h3>
+    </div>
+    <div class="my-5">
+        <h1>Gym</h1>
         <p>This is the gym we will be playing at - pictures of the inside will be following:</p>
         <a class="text-decoration-none" target="_blank"
            href="https://goo.gl/maps/QXmaD3n6akpwtVJZA">
@@ -27,11 +36,16 @@
         </a>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -50,11 +64,13 @@
                     <img class="d-block w-100" src="{{ asset("assets/ort/2.jpg") }}" alt="Third slide">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>

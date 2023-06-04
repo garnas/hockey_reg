@@ -15,6 +15,12 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig');
     }
 
+    #[Route('/test', name: 'app_test')]
+    public function test(): Response
+    {
+        return $this->render('main/test.html.twig');
+    }
+
     #[Route('/imprint', name: 'app_imprint')]
     public function imprint(): Response
     {
@@ -41,7 +47,6 @@ class MainController extends AbstractController
     #[Route('/accomodations', name: 'app_accomodations')]
     public function accomodations(): Response
     {
-        $this->addFlash('success', "A list of accomodations should be soon online.");
         return $this->render("main/accomodations.html.twig");
     }
 

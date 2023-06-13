@@ -35,6 +35,7 @@ class Util
         'Portugal' => 'PT',
         'Romania' => 'RO',
         'Sweden' => 'SE',
+        'Switzerland' => 'CH',
         'Slovenia' => 'SI',
         'Slovakia' => 'SK',
     ];

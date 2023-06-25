@@ -33,50 +33,50 @@ class RegistrationController extends AbstractController
     {
         $team = new Team();
         $form = $this->createForm(RegistrationFormType::class, $team);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $team->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $team,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $team->setPaid(false);
-            $team->addTeamRole();
-            $teamRepository->save($team, true);
-
-            // generate a signed url and email it to the user
-            try {
-                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $team,
-                    (new TemplatedEmail())
-                        ->from(new Address('mailbot@einrad.hockey', 'Unicycle Hockey'))
-                        ->to($team->getEmail())
-                        ->subject('Please Confirm your Email')
-                        ->htmlTemplate('registration/confirmation_email.html.twig')
-                );
-            } catch (RfcComplianceException $e) {
-                $teamRepository->remove($team, true);
-                $this->addFlash('error', 'Could not send verification email.');
-                $this->addFlash('error', $e->getMessage());
-                return $this->render('registration/register.html.twig', [
-                    'registrationForm' => $form->createView(),
-                ]);
-            } catch (TransportExceptionInterface $e) {
-                $teamRepository->remove($team, true);
-                $this->addFlash('error', 'Could not send verification email.');
-                $this->addFlash('error', $e->getMessage());
-                return $this->render('registration/register.html.twig', [
-                    'registrationForm' => $form->createView(),
-                ]);
-            }
-
-            $this->addFlash('success', 'An email verification has been send.');
-
-            return $this->redirectToRoute('app_login');
-        }
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            // encode the plain password
+//            $team->setPassword(
+//                $userPasswordHasher->hashPassword(
+//                    $team,
+//                    $form->get('plainPassword')->getData()
+//                )
+//            );
+//
+//            $team->setPaid(false);
+//            $team->addTeamRole();
+//            $teamRepository->save($team, true);
+//
+//            // generate a signed url and email it to the user
+//            try {
+//                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $team,
+//                    (new TemplatedEmail())
+//                        ->from(new Address('mailbot@einrad.hockey', 'Unicycle Hockey'))
+//                        ->to($team->getEmail())
+//                        ->subject('Please Confirm your Email')
+//                        ->htmlTemplate('registration/confirmation_email.html.twig')
+//                );
+//            } catch (RfcComplianceException $e) {
+//                $teamRepository->remove($team, true);
+//                $this->addFlash('error', 'Could not send verification email.');
+//                $this->addFlash('error', $e->getMessage());
+//                return $this->render('registration/register.html.twig', [
+//                    'registrationForm' => $form->createView(),
+//                ]);
+//            } catch (TransportExceptionInterface $e) {
+//                $teamRepository->remove($team, true);
+//                $this->addFlash('error', 'Could not send verification email.');
+//                $this->addFlash('error', $e->getMessage());
+//                return $this->render('registration/register.html.twig', [
+//                    'registrationForm' => $form->createView(),
+//                ]);
+//            }
+//
+//            $this->addFlash('success', 'An email verification has been send.');
+//
+//            return $this->redirectToRoute('app_login');
+//        }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,

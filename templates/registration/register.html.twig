@@ -30,20 +30,19 @@
             refunds will be provided.
         </p>
     </div>
-    <div class="alert alert-success">You can still change the information entered here after your registration (e. g.
-        the team name).
+    <div class="alert alert-warning">The Registration is closed.
     </div>
 
-    {{ form_start(registrationForm, { 'attr': {'data-turbo': 'false'} }) }}
-    {{ form_row(registrationForm.teamname) }}
-    {{ form_row(registrationForm.email) }}
+{#    {{ form_start(registrationForm, { 'attr': {'data-turbo': 'false'} }) }}#}
+{#    {{ form_row(registrationForm.teamname) }}#}
+{#    {{ form_row(registrationForm.email) }}#}
 
-    {{ form_row(registrationForm.plainPassword, {
-        label: 'Password',
-    }) }}
-    {{ form_row(registrationForm.tournamentLevel) }}
-    {{ form_row(registrationForm.country) }}
-    {#    {{ form_row(registrationForm.agreeTerms) }} #}
-    <input type="submit" value="Register" class="btn btn-primary">
-    {{ form_end(registrationForm) }}
+{#    {{ form_row(registrationForm.plainPassword, {#}
+{#        label: 'Password',#}
+{#    }) }}#}
+{#    {{ form_row(registrationForm.tournamentLevel) }}#}
+{#    {{ form_row(registrationForm.country) }}#}
+{#    #}{#    {{ form_row(registrationForm.agreeTerms) }} #}
+{#    <input type="submit" value="Register" class="btn btn-primary">#}
+{#    {{ form_end(registrationForm) }}#}
 {% endblock %}

@@ -21,6 +21,11 @@
                            href="{{ path('app_home') }}">Info</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if route_name == "app_timetable" %}active text-primary text-uppercase{% endif %}"
+                                {% if route_name == "app_timetable" %} aria-current="page" {% endif %}
+                           href="{{ path('app_timetable') }}">Timetable</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {% if route_name == "app_register" %}active text-primary text-uppercase{% endif %}"
                                 {% if route_name == "app_register" %} aria-current="page" {% endif %}
                            href="{{ path('app_register') }}">Register</a>

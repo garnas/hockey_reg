@@ -44,6 +44,14 @@ class MainController extends AbstractController
         ]);
     }
 
+    #[Route('/timetable', name: 'app_timetable')]
+    public function timetable(TeamRepository $teamRepository): Response
+    {
+        $user = $this->getUser();
+        $teams = $teamRepository->findAll();
+        return $this->render('main/parent_timetable.html.twig');
+    }
+
     #[Route('/accomodations', name: 'app_accomodations')]
     public function accomodations(): Response
     {

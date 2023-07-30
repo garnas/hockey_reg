@@ -1,8 +1,22 @@
 <div class="">
     <h1>Spielplan / Fixtures</h1>
+    <p>
+        <a class="text-decoration-none fs-2" target="_blank"
+           href="{{ path('app_spielplan', {turnierForm: 'b'}) }}">
+            <i class="bi bi-arrow-up-right-square me-1"></i>Live Spielplan B-Vorrunde
+        </a>
+    </p>
+    <p>
     <a class="text-decoration-none fs-2" target="_blank"
-       href="{{ asset('assets/spielplan.pdf') }}">
-        <i class="bi bi-file-earmark-arrow-down-fill me-1"></i>Download Spielplan / Fixtures
+       href="{{ path('app_spielplan', {turnierForm: 'a'}) }}">
+        <i class="bi bi-arrow-up-right-square me-1"></i>Live Spielplan A-Vorrunde
     </a>
+    </p>
+    <p>
+    <a class="text-decoration-none fs-5" target="_blank"
+       href="{{ asset('assets/spielplan.pdf') }}">
+        <i class="bi bi-file-earmark-arrow-down-fill me-1"></i>Download PDF-Spielplan
+    </a>
+    </p>
 </div>
 

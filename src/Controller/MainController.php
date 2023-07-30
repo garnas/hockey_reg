@@ -57,5 +57,18 @@ class MainController extends AbstractController
     {
         return $this->render("main/accomodations.html.twig");
     }
+    #[Route('/spielplan/{turnierForm}', name: 'app_spielplan')]
+    public function spielplan(string $turnierForm): Response
+    {
+        $links = [
+            "a" => "EUHC_SPIELPLAN_A",
+            "b" => "EUHC_SPIELPLAN_B",
+        ];
+//        return $this->redirect($_ENV["EUHC_SPIELPLAN_B"]);
+        return $this->render("main/spielplan.html.twig", [
+            "link" => $links[$turnierForm]
+        ]);
+    }
+
 
 }

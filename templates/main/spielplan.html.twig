@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <script>
-        var iframe = document.getElementById("myiframe");
-        // iframe.width = iframe.contentWindow.document.body.scrollWidth;
-        iframe.height = iframe.contentWindow.document.body.scrollHeight;
-    </script>
+{#    <script>#}
+{#        var iframe = document.getElementById("myiframe");#}
+{#        // iframe.width = iframe.contentWindow.document.body.scrollWidth;#}
+{#        iframe.height = iframe.contentWindow.document.body.scrollHeight;#}
+{#    </script>#}
     <iframe id="myiframe" scrolling="no" style="width:100%; height:2800px; overflow: hidden;" src="{{ app.request.server.get(link) }}"></iframe>
 {% endblock %}

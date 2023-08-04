@@ -18,8 +18,7 @@ class PlayerController extends AbstractController
         $team = $this->getUser();
         $player = $playerRepository->find($playerId);
         if (
-            $player !== null
-            && $player->getTeam() === $team
+            false
         ) {
             $playerRepository->remove($player, true);
             $this->addFlash("success", "Player has been removed.");

@@ -33,7 +33,7 @@ class TeamController extends AbstractController
         $teamname_backup = $team->getTeamname(); # The teamname is also the user name -> Ungültiger Teamname -> der User fliegt raus
         $teamUpdateForm = $this->createForm(TeamType::class, $team);
         $teamUpdateForm->handleRequest($request); # Teamname wird hiermit geändert, wenn submitted
-        if ($teamUpdateForm->isSubmitted() && !$teamUpdateForm->isValid()) {
+        if (false) {
             $team->setTeamname($teamname_backup);
         }
         if ($teamUpdateForm->isSubmitted() && $teamUpdateForm->isValid()) {

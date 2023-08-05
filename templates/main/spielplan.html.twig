@@ -2,21 +2,26 @@
 
 {% block body %}
     <div class="mt-5">
-        <a href="https://www.twitch.tv/einradhockeytv" class="link-primary text-decoration-none fs-2" target="_blank">
+        <a href="https://www.twitch.tv/einradhockeytv" class="link-primary text-decoration-none fs-3" target="_blank">
             <i class="bi bi-film"></i> Livestream: EinradhockeyTV
         </a>
     </div>
-    <h1>Finals</h1>
-    {% if link == 'EUHC_SPIELPLAN_B' %}
-        <iframe scrolling="no" style="width:100%; height:560px; overflow: hidden;"
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQRWAATIESCk2sd3e88wVrFnh6LmUeesqs6nIQadUdKjX4tN56vjk9wjJm66m3JKLpZno1N2QS2ZKQP/pubhtml?widget=true&amp;headers=false&amp;gid=653411586">
-        </iframe>
-    {% else %}
-        <iframe scrolling="no" style="width:100%; height:500px; overflow: hidden;"
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQRWAATIESCk2sd3e88wVrFnh6LmUeesqs6nIQadUdKjX4tN56vjk9wjJm66m3JKLpZno1N2QS2ZKQP/pubhtml?widget=true&amp;headers=false&amp;gid=0">
-        </iframe>
-    {% endif %}
-
-    <h1>Preliminaries</h1>
-    <iframe id="myiframe" scrolling="no" style="width:100%; height:3200px; overflow: hidden;" src="{{ app.request.server.get(link) }}"></iframe>
+    <br>
+    <div class="mt-2">
+        <h1>Finals</h1>
+        {% if link == 'EUHC_SPIELPLAN_B' %}
+            <iframe scrolling="no" style="width:100%; height:560px; overflow: hidden;"
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQRWAATIESCk2sd3e88wVrFnh6LmUeesqs6nIQadUdKjX4tN56vjk9wjJm66m3JKLpZno1N2QS2ZKQP/pubhtml?widget=true&amp;headers=false&amp;gid=653411586">
+            </iframe>
+        {% else %}
+            <iframe scrolling="no" style="width:100%; height:500px; overflow: hidden;"
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQRWAATIESCk2sd3e88wVrFnh6LmUeesqs6nIQadUdKjX4tN56vjk9wjJm66m3JKLpZno1N2QS2ZKQP/pubhtml?widget=true&amp;headers=false&amp;gid=0">
+            </iframe>
+        {% endif %}
+    </div>
+    <div class="mt-3">
+        <h1 class="">Preliminaries</h1>
+        <iframe id="myiframe" scrolling="no" style="width:100%; height:3200px; overflow: hidden;"
+                src="{{ app.request.server.get(link) }}"></iframe>
+    </div>
 {% endblock %}

@@ -1,10 +1,17 @@
 {# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
+{% block javascripts %}
+
+{% endblock %}
+
 {% block body %}
     {#    <div class=""> #}
     {#        <img src="{{ asset("assets/flyer.jpg") }}" class="img-fluid rounded mx-auto d-block px-0 mb-0" #}
     {#             alt="Flyer with save the date."> #}
     {#    </div> #}
+    <script src ={{ asset('assets/confetti.js') }}></script>
+    <script>confetti.start(40, 120, 6000)</script>
+    <h1>Congratulations to Switzerland for winning gold and silver at the European Championship!</h1>
     <div class="my-5">
         {{ include('main/livestream.html.twig') }}
     </div>
